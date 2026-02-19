@@ -3,7 +3,6 @@
 import { prisma } from "@/lib/prisma"
 import { revalidatePath } from "next/cache"
 
-"use server"
 // Cambiamos el retorno a Promise<void> para que TypeScript no pelee
 export async function createCategory(formData: FormData): Promise<void> {
   const name = formData.get("name") as string
