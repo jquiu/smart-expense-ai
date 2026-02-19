@@ -36,12 +36,7 @@ export default async function CategoriesPage() {
           <Plus size={18} className="text-blue-400" />
           Nueva Categoría
         </h2>
-        <form
-          action={async (formData: FormData) => {
-            await createCategory(formData);
-          }}
-          className="flex flex-col md:flex-row gap-4"
-        >
+        <form action={createCategory} className="flex flex-col md:flex-row gap-4">
           <Input
             name="name"
             placeholder="Nombre (ej: Gimnasio)"
@@ -53,7 +48,10 @@ export default async function CategoriesPage() {
             placeholder="Icono (ej: Dumbbell)"
             className="bg-[#0f172a] border-slate-700 text-white"
           />
-          <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white transition-all">
+          <Button
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-700 text-white transition-all"
+          >
             Guardar Categoría
           </Button>
         </form>
@@ -91,10 +89,14 @@ export default async function CategoriesPage() {
                     </span>
                   </TableCell>
                   <TableCell className="text-right">
-                    <form action={async () => {
-                      await deleteCategory(cat.id);
-                    }}>
-                      <Button variant="ghost" size="icon" className="text-slate-400 hover:text-red-400 hover:bg-red-400/10">
+                    {/* .bind crea una nueva versión de la función con el ID ya 'inyectado' de forma serializable */}
+                    <form action={deleteCategory.bind(null, cat.id)}>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="text-slate-400 hover:text-red-400 hover:bg-red-400/10 transition-colors"
+                        type="submit"
+                      >
                         <Trash2 size={18} />
                       </Button>
                     </form>
